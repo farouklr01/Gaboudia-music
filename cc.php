@@ -1,44 +1,44 @@
 <?PHP
-include "../core/ReclamationserviceC.php";
-$reclamationservice1C=new ReclamationserviceC();
-$listeReclamationservices=$reclamationservice1C->afficherReclamationservices();
+include "../core/ReclamationproduitC.php";
+$reclamationproduit1C=new ReclamationproduitC();
+$listeReclamationproduits=$reclamationproduit1C->afficherReclamationproduits();
 
 //var_dump($listeReclamtionproduits->fetchAll());
 ?>
 <table border="1">
 <tr>
-<td>Cin</td>
-<td>NomS</td>
-<td>PrenomS</td>
-<td>emailS</td>
-<td>TelephoneS</td>
-<td>TypeS</td>
-<td>CategorieS</td>
-<td>NumeroS</td>
-<td>DescriptionS</td>
+<td>Id</td>
+<td>NomP</td>
+<td>PrenomP</td>
+<td>TelephoneP</td>
+<td>TypeP</td>
+<td>CategorieP</td>
+<td>NumeroP</td>
+<td>DescriptionP</td>
+<td>numerofacture</td>
 <td>supprimer</td>
 <td>modifier</td>
 </tr>
 
 <?PHP
-foreach($listeReclamationservices as $row){
+foreach($listeReclamationproduits as $row){
 	?>
 	<tr>
-	<td><?PHP echo $row['cin']; ?></td>
-	<td><?PHP echo $row['nomS']; ?></td>
-	<td><?PHP echo $row['prenomS']; ?></td>
-	<td><?PHP echo $row['emailS']; ?></td>
-	<td><?PHP echo $row['telephoneS']; ?></td>
-	<td><?PHP echo $row['typeS']; ?></td>
-	<td><?PHP echo $row['categorieS']; ?></td>
-	<td><?PHP echo $row['numeroS']; ?></td>
-	<td><?PHP echo $row['descriptionS']; ?></td>
-	<td><form method="POST" action="supprimerReclamationservice.php">
+	<td><?PHP echo $row['id']; ?></td>
+	<td><?PHP echo $row['nomP']; ?></td>
+	<td><?PHP echo $row['prenomP']; ?></td>
+	<td><?PHP echo $row['telephoneP']; ?></td>
+	<td><?PHP echo $row['typeP']; ?></td>
+	<td><?PHP echo $row['categorieP']; ?></td>
+	<td><?PHP echo $row['numeroP']; ?></td>
+	<td><?PHP echo $row['descriptionP']; ?></td>
+	<td><?PHP echo $row['numerofacture']; ?></td>
+	<td><form method="POST" action="supprimerReclamationproduit.php">
 	<input type="submit" name="supprimer" value="supprimer">
-	<input type="hidden" value="<?PHP echo $row['cin']; ?>" name="cin">
+	<input type="hidden" value="<?PHP echo $row['id']; ?>" name="id">
 	</form>
 	</td>
-	<td><a href="modifierReclamationservice.php?cin=<?PHP echo $row['cin']; ?>">
+	<td><a href="modifierReclamationproduit.php?id=<?PHP echo $row['id']; ?>">
 	Modifier</a></td>
 	</tr>
 	<?PHP

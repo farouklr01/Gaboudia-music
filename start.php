@@ -1,31 +1,31 @@
 <?PHP
-include "../entities/reclamationservice.php";
-include "../core/reclamationserviceC.php";
-$reclamationservice=new Reclamationservice(757,'BEN Ahmed','Salah',50,'kk','lll',20,'ff',2);
-$reclamationserviceC=new ReclamationserviceC();
-$reclamationserviceC->afficherReclamationservice($reclamationservice);
+include "../entities/reclamationproduit.php";
+include "../core/reclamationproduitC.php";
+$reclamationproduit=new Reclamationproduit(757,'BEN Ahmed','Salah',50,'kk','lll',20,'ff',2);
+$reclamationproduitC=new ReclamationproduitC();
+$reclamationproduitC->afficherReclamationproduit($reclamationproduit);
 echo "****************";
 echo "<br>";
-echo "cin:".$reclamationservice->getcin();
+echo "id:".$reclamationproduit->getId();
 echo "<br>";
-echo "nomS:".$reclamationservice->getNomS();
+echo "nomP:".$reclamationproduit->getNomP();
 echo "<br>";
-echo "prenomS:".$reclamationservice->getPrenomS();
+echo "prenomP:".$reclamationproduit->getPrenomP();
 echo "<br>";
+echo "telephoneP:".$reclamationproduit->getTelephoneP();
 echo "<br>";
-echo "emailS:".$reclamationservice->getemailS();
+echo "typeP:".$reclamationproduit->getTypeP();
 echo "<br>";
-echo "telephoneS:".$reclamationservice->getTelephoneS();
+echo "categorieP:".$reclamationproduit->getCategorieP();
 echo "<br>";
-echo "typeS:".$reclamationservice->getTypeS();
+echo "numeroP:".$reclamationproduit->getNumeroP();
 echo "<br>";
-echo "categorieS:".$reclamationservice->getCategorieS();
+echo "descriptionP:".$reclamationproduit->getDescriptionP();
 echo "<br>";
-echo "numeroS:".$reclamationservice->getNumeroS();
+echo "numerofacture:".$reclamationproduit->getNumerofacture();
 echo "<br>";
-echo "descriptionS:".$reclamationservice->getDescriptionS();
 /*echo "le salaire est : ";
-$reclamationproduitC->calculerSalaire($reclamationservice); 
+$reclamationproduitC->calculerSalaire($reclamationproduit); 
 echo "<br>";*/
 
 
