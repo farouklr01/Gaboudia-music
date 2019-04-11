@@ -1,32 +1,21 @@
 <?PHP
-include "../entities/reclamationproduit.php";
-include "../core/reclamationproduitC.php";
-$reclamationproduit=new Reclamationproduit(757,'BEN Ahmed','Salah',50,'kk','lll',20,'ff',2);
-$reclamationproduitC=new ReclamationproduitC();
-$reclamationproduitC->afficherReclamationproduit($reclamationproduit);
+include "../entities/utilisateur.php";
+include "../core/utilisateurC.php";
+$utilisateur=new Utilisateur(75757575,'BEN Ahmed','Salah',50,20);
+$utilisateurC=new UtilisateurC();
+$utilisateurC->afficherutilisateur($utilisateur);
 echo "****************";
 echo "<br>";
-echo "id:".$reclamationproduit->getId();
+echo "cin:".$utilisateur->getCin();
 echo "<br>";
-echo "nomP:".$reclamationproduit->getNomP();
+echo "nom:".$utilisateur->getNom();
 echo "<br>";
-echo "prenomP:".$reclamationproduit->getPrenomP();
+echo "prenom:".$utilisateur->getPrenom();
 echo "<br>";
-echo "telephoneP:".$reclamationproduit->getTelephoneP();
+echo "email:".$utilisateur->getEmail();
 echo "<br>";
-echo "typeP:".$reclamationproduit->getTypeP();
-echo "<br>";
-echo "categorieP:".$reclamationproduit->getCategorieP();
-echo "<br>";
-echo "numeroP:".$reclamationproduit->getNumeroP();
-echo "<br>";
-echo "descriptionP:".$reclamationproduit->getDescriptionP();
-echo "<br>";
-echo "numerofacture:".$reclamationproduit->getNumerofacture();
-echo "<br>";
-/*echo "le salaire est : ";
-$reclamationproduitC->calculerSalaire($reclamationproduit); 
-echo "<br>";*/
+echo "adresse:".$utilisateur->getAdresse();
+ 
 
 
 ?>
