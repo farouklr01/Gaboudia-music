@@ -5,7 +5,7 @@
     public static function getConnexion() {
       if (!isset(self::$instance)) {
 		try{
-        self::$instance = new PDO('mysql:host=localhost;dbname=gaboudia-music', 'root', '');
+        self::$instance = new PDO('mysql:host=localhost;dbname=projet_web'/*l'adreese du pc où mysql est installé généralment localhost+ le nom de la database */, 'root', '');//PDO est une classe permettant d'accéder à n'importe quel type de DB
 		self::$instance->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		}catch(Exception $e){
             die('Erreur: '.$e->getMessage());
