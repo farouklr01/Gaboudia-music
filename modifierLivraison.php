@@ -1,22 +1,20 @@
 <?PHP
 ob_start();
-include "../entities/utilisateur.php";
-include "../core/UtilisateurC.php";
+include "../entities/Livraison.php";
+include "../core/LivraisonC.php";
 
 
-        if (isset($_GET['id_utilisateur'])){
-    $utilisateurC1=new UtilisateurC();
-    $result=$utilisateurC1->recupereruser($_GET['id_utilisateur']);
+        if (isset($_GET['refliv'])){
+    $livraisonC1=new LivraisonC();
+    $result=$livraisonC1->recupererlivraison($_GET['refliv']);
     foreach($result as $row){
-        $nom=$row['nom'];
-        $prenom=$row['prenom'];
-        $sexe=$row['sexe'];
-        $email=$row['email'];
-        $tel=$row['tel'];
-        $datenaiss=$row['datenaiss'];
-        $user=$row['user'];
-        $mdp=$row['mdp'];
-        $imgsrc=$row['imgsrc'];
+        $nomrecep=$row['nomrecep'];
+        $dateliv=$row['dateliv'];
+        $nomlivreur=$row['nomlivreur'];
+        $adress=$row['adress'];
+        $codep=$row['codep'];
+        $prix=$row['prix'];
+
 ?>
 
 <html class="no-js" lang="en">
@@ -90,7 +88,8 @@ include "../core/UtilisateurC.php";
                             <li><i class="fa fa-table"></i><a href="afficherUtilisateur.php">Gestions des Utilisateurs</a></li>
                             <li><i class="fa fa-table"></i><a href="afficherLivraison.php">Gestions des Livraisons</a></li>
                         </ul>
-                    </li>                    <li class="menu-item-has-children active dropdown">
+                    </li>
+                    <li class="menu-item-has-children active dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-th"></i>Forms</a>
                         <ul class="sub-menu children dropdown-menu">
                             <li><i class="menu-icon fa fa-th"></i><a href="forms-basic.html">Basic Form</a></li>
@@ -277,7 +276,7 @@ include "../core/UtilisateurC.php";
             <div class="col-sm-4">
                 <div class="page-header float-left">
                     <div class="page-title">
-                        <h1>Modifier Utilisateur</h1>
+                        <h1>Modifier Livraison</h1>
                     </div>
                 </div>
             </div>
@@ -294,49 +293,34 @@ include "../core/UtilisateurC.php";
                     <div class="col-lg-6">
                         <div class="card">
                             <div class="card-header">
-                                <strong>Modifier</strong><small> Utilisateur</small>
+                                <strong>Modifier</strong><small> Livraison</small>
                             </div>
                             <div class="card-body card-block">
-                                <div class="form-group"><label class=" form-control-label">Nom</label>
-                                    <input type="text" name="nom" placeholder="nom" class="form-control" value="<?PHP echo $nom ?>"></div>
+                                <div class="form-group"><label class=" form-control-label">Nom Recepteur</label>
+                                    <input type="text" name="nomrecep" placeholder="nom" class="form-control" value="<?PHP echo $nomrecep ?>"></div>
                                 <div class="form-group">
-                                    <label class=" form-control-label">Prenom</label>
-                                    <input type="text" name="prenom" placeholder="Prenom" class="form-control" value="<?PHP echo $prenom ?>">
+                                <div class="form-group"><label class=" form-control-label">DATE DE CREATION LIVRAISON</label>
+                                    <input type="text" name="dateliv" id="dateliv"  class="form-control" disabled="" value="<?PHP echo $dateliv ?>">
                                 </div>
-                                <div class="form-group"><label class=" form-control-label">Email</label>
-                                    <input type="text" name="email" id="email" placeholder="email" class="form-control" value="<?PHP echo $email ?>">
+                                    <label class=" form-control-label">Nom Livreur</label>
+                                    <input type="text" name="nomlivreur" placeholder="Nom Livreur" class="form-control" value="<?PHP echo $nomlivreur ?>">
                                 </div>
-                                <div class="form-group"><label class=" form-control-label">Telephone</label>
-                                    <input type="text" name="tel" id="telephone" placeholder="+216 .." class="form-control" value="<?PHP echo $tel ?>">
+                                <div class="form-group"><label class=" form-control-label">ADRESS</label>
+                                    <input type="text" name="adress" id="adress" placeholder="Votre Adress" class="form-control" value="<?PHP echo $adress ?>">
                                 </div>
-                                <div class="form-group"><label class=" form-control-label">Date de naissance</label>
-                                    <input type="date" name="datenaiss" id="datenaiss" class="form-control" value="<?PHP echo $datenaiss ?>">
+                                <div class="form-group"><label class=" form-control-label">CODE POSTAL</label>
+                                    <input type="text" name="codep" id="codep" placeholder="2011" class="form-control" value="<?PHP echo $codep ?>">
                                 </div>
-                                <div class="form-group"><label class=" form-control-label">Mot de pass</label>
-                                    <input type="text" name="mdp" placeholder="**********" class="form-control" value="<?PHP echo $mdp ?>">
+                                <div class="form-group"><label class=" form-control-label">PRIX</label>
+                                    <input type="text" name="prix" id="prix" placeholder="25$" class="form-control" value="<?PHP echo $prix ?>">
                                 </div>
-                                            <div class="row form-group">
-                                            <div class="col col-md-3">
-                                            <label class=" form-control-label">Sexe</label></div>
-                                                     <div class="col-12 col-md-9">
-                                                                          <select name="sexe" class="form-control">
-                                                                            <option value="<?PHP echo $sexe ?>">Selectionner</option>
-                                                                            <option value="Homme">Homme</option>
-                                                                            <option value="Femme">Femme</option>
-                                                                            </select>
 
-                                                     </div>
-                                            </div>
-                                                    <div class="row form-group">
-                                                                    <div class="col col-md-3"><label for="file-input" class=" form-control-label">Image</label></div>
-                                                                    <div class="col-12 col-md-9"><input type="file" id="uploadfile" name="uploadfile" class="form-control-file"></div>
-                                                                </div>
                                                         <div class="card-footer">
                                                         <button type="submit" class="btn btn-success btn-sm" name="modifier" value="modifier">Modifier</button>
 
                                                         <button type="submit" class="btn btn-danger btn-sm" name="Annuler" value="Annuler">Annuler</button>
                                                     </div>
-                                                    <td><input type="hidden" name="id_utilisateur" value="<?PHP echo $_GET['id_utilisateur'];?>"></td>
+                                                    <td><input type="hidden" name="refliv" value="<?PHP echo $_GET['refliv'];?>"></td>
                                                     </div>
                                                 </div>
                                             </div>
@@ -346,30 +330,17 @@ include "../core/UtilisateurC.php";
 }
 if (isset($_POST['modifier'])){
 
-    $utilisateur1=new Utilisateur($_POST['nom'],$_POST['prenom'],$_POST['sexe'],$_POST['email'],$_POST['tel'],$_POST['datenaiss'],$user,$_POST['mdp']);
+    $Livraison1=new Livraison($_POST['nomrecep'],$_POST['nomlivreur'],$_POST['adress'],$_POST['codep'],$_POST['prix']);
     
-    $utilisateurC1->modifieruser($utilisateur1,$_POST['id_utilisateur']);
+    $livraisonC1->modifierLivraison($Livraison1,$_POST['refliv']);
 
-    $filename = $_FILES["uploadfile"]["name"];
-    $tempname = $_FILES["uploadfile"]["tmp_name"];
-    $folder = "../img/userimg/".$filename ;
-
-    echo $filename;
-    if($filename!="")
-   {
-     move_uploaded_file($tempname, $folder);
-
-    $utilisateurC1->ajouterUtilisateurimg($user,$folder);
-   }
-
-    header('Location: afficherUtilisateur.php');
+    header('Location: afficherLivraison.php');
 
 }
 if (isset($_POST['Annuler'])){
-    header('Location: afficherUtilisateur.php');
+    header('Location: afficherLivraison.php');
 
 }
-
 
 ?>
 

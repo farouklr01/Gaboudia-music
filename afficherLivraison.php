@@ -1,24 +1,16 @@
 <?PHP
-ob_start();
-include "../entities/utilisateur.php";
-include "../core/UtilisateurC.php";
+include "../core/LivraisonC.php";
+$livraison1C=new LivraisonC();
+$listelivraison=$livraison1C->afficherLivraisons();
 
-
-        if (isset($_GET['id_utilisateur'])){
-    $utilisateurC1=new UtilisateurC();
-    $result=$utilisateurC1->recupereruser($_GET['id_utilisateur']);
-    foreach($result as $row){
-        $nom=$row['nom'];
-        $prenom=$row['prenom'];
-        $sexe=$row['sexe'];
-        $email=$row['email'];
-        $tel=$row['tel'];
-        $datenaiss=$row['datenaiss'];
-        $user=$row['user'];
-        $mdp=$row['mdp'];
-        $imgsrc=$row['imgsrc'];
+//var_dump($listeEmployes->fetchAll());
 ?>
 
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
+<!--[if gt IE 8]><!-->
 <html class="no-js" lang="en">
 <!--<![endif]-->
 
@@ -38,17 +30,15 @@ include "../core/UtilisateurC.php";
     <link rel="stylesheet" href="vendors/themify-icons/css/themify-icons.css">
     <link rel="stylesheet" href="vendors/flag-icon-css/css/flag-icon.min.css">
     <link rel="stylesheet" href="vendors/selectFX/css/cs-skin-elastic.css">
+    <link rel="stylesheet" href="vendors/datatables.net-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="vendors/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css">
 
     <link rel="stylesheet" href="assets/css/style.css">
 
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
-
-
-
 </head>
 
 <body>
-
     <!-- Left Panel -->
 
     <aside id="left-panel" class="left-panel">
@@ -90,7 +80,8 @@ include "../core/UtilisateurC.php";
                             <li><i class="fa fa-table"></i><a href="afficherUtilisateur.php">Gestions des Utilisateurs</a></li>
                             <li><i class="fa fa-table"></i><a href="afficherLivraison.php">Gestions des Livraisons</a></li>
                         </ul>
-                    </li>                    <li class="menu-item-has-children active dropdown">
+                    </li>
+                    <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-th"></i>Forms</a>
                         <ul class="sub-menu children dropdown-menu">
                             <li><i class="menu-icon fa fa-th"></i><a href="forms-basic.html">Basic Form</a></li>
@@ -277,7 +268,7 @@ include "../core/UtilisateurC.php";
             <div class="col-sm-4">
                 <div class="page-header float-left">
                     <div class="page-title">
-                        <h1>Modifier Utilisateur</h1>
+                        <h1>Gestion des Livraisons</h1>
                     </div>
                 </div>
             </div>
@@ -285,109 +276,114 @@ include "../core/UtilisateurC.php";
 
         <div class="content mt-3">
             <div class="animated fadeIn">
+                <div class="row">
 
-
-
-<!--HOUNIIIIIIIIIIIII -->
-        <form method="POST" enctype="multipart/form-data">
-
-                    <div class="col-lg-6">
+                    <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
-                                <strong>Modifier</strong><small> Utilisateur</small>
+                                <strong class="card-title">Gestion des Livraisons</strong>
                             </div>
-                            <div class="card-body card-block">
-                                <div class="form-group"><label class=" form-control-label">Nom</label>
-                                    <input type="text" name="nom" placeholder="nom" class="form-control" value="<?PHP echo $nom ?>"></div>
-                                <div class="form-group">
-                                    <label class=" form-control-label">Prenom</label>
-                                    <input type="text" name="prenom" placeholder="Prenom" class="form-control" value="<?PHP echo $prenom ?>">
-                                </div>
-                                <div class="form-group"><label class=" form-control-label">Email</label>
-                                    <input type="text" name="email" id="email" placeholder="email" class="form-control" value="<?PHP echo $email ?>">
-                                </div>
-                                <div class="form-group"><label class=" form-control-label">Telephone</label>
-                                    <input type="text" name="tel" id="telephone" placeholder="+216 .." class="form-control" value="<?PHP echo $tel ?>">
-                                </div>
-                                <div class="form-group"><label class=" form-control-label">Date de naissance</label>
-                                    <input type="date" name="datenaiss" id="datenaiss" class="form-control" value="<?PHP echo $datenaiss ?>">
-                                </div>
-                                <div class="form-group"><label class=" form-control-label">Mot de pass</label>
-                                    <input type="text" name="mdp" placeholder="**********" class="form-control" value="<?PHP echo $mdp ?>">
-                                </div>
-                                            <div class="row form-group">
-                                            <div class="col col-md-3">
-                                            <label class=" form-control-label">Sexe</label></div>
-                                                     <div class="col-12 col-md-9">
-                                                                          <select name="sexe" class="form-control">
-                                                                            <option value="<?PHP echo $sexe ?>">Selectionner</option>
-                                                                            <option value="Homme">Homme</option>
-                                                                            <option value="Femme">Femme</option>
-                                                                            </select>
-
-                                                     </div>
-                                            </div>
-                                                    <div class="row form-group">
-                                                                    <div class="col col-md-3"><label for="file-input" class=" form-control-label">Image</label></div>
-                                                                    <div class="col-12 col-md-9"><input type="file" id="uploadfile" name="uploadfile" class="form-control-file"></div>
-                                                                </div>
-                                                        <div class="card-footer">
-                                                        <button type="submit" class="btn btn-success btn-sm" name="modifier" value="modifier">Modifier</button>
-
-                                                        <button type="submit" class="btn btn-danger btn-sm" name="Annuler" value="Annuler">Annuler</button>
-                                                    </div>
-                                                    <td><input type="hidden" name="id_utilisateur" value="<?PHP echo $_GET['id_utilisateur'];?>"></td>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </form>
-<?PHP
-    }
+                            
+                            <div class="card-body">
+                                <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
+                                    <thead>
+                                        <tr>
+                                        <td>Reference Livraison</td>
+                                        <td>Nom Recepteur</td>
+                                        <td>Date de livraison</td>
+                                        <td>Nom livreur</td>
+                                        <td>adress</td>
+                                        <td>CODE POSTAL</td>
+                                        <td>Prix</td>
+                                        <td>supprimer</td>
+                                        <td>modifier</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?PHP
+foreach($listelivraison as $row){
+    ?>
+    <tr>
+    <td><?PHP echo $row['refliv']; ?></td>
+    <td><?PHP echo $row['nomrecep']; ?></td>
+    <td><?PHP echo $row['dateliv']; ?></td>
+    <td><?PHP echo $row['nomlivreur']; ?></td>
+    <td><?PHP echo $row['adress']; ?></td>
+    <td><?PHP echo $row['codep']; ?></td>
+    <td><?PHP echo $row['prix']; ?></td>
+    <td><form method="POST" action="supprimerLivraison.php">
+    <input type="submit" name="supprimer" value="supprimer">
+    <input type="hidden" value="<?PHP echo $row['refliv']; ?>" name="refliv">
+    </form>
+    </td>
+    <td><a href="modifierLivraison.php?refliv=<?PHP echo $row['refliv']; ?>">
+    Modifier</a></td>
+    </tr>
+    <?PHP
 }
-if (isset($_POST['modifier'])){
-
-    $utilisateur1=new Utilisateur($_POST['nom'],$_POST['prenom'],$_POST['sexe'],$_POST['email'],$_POST['tel'],$_POST['datenaiss'],$user,$_POST['mdp']);
-    
-    $utilisateurC1->modifieruser($utilisateur1,$_POST['id_utilisateur']);
-
-    $filename = $_FILES["uploadfile"]["name"];
-    $tempname = $_FILES["uploadfile"]["tmp_name"];
-    $folder = "../img/userimg/".$filename ;
-
-    echo $filename;
-    if($filename!="")
-   {
-     move_uploaded_file($tempname, $folder);
-
-    $utilisateurC1->ajouterUtilisateurimg($user,$folder);
-   }
-
-    header('Location: afficherUtilisateur.php');
-
-}
-if (isset($_POST['Annuler'])){
-    header('Location: afficherUtilisateur.php');
-
-}
-
-
 ?>
-
-<!--HOUNIIIIIIIIIIIII -->
-                                            </div>
-                                        </div><!-- .animated -->
-                                    </div><!-- .content -->
-                                </div><!-- /#right-panel -->
-                                <!-- Right Panel -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
 
 
-                            <script src="vendors/jquery/dist/jquery.min.js"></script>
-                            <script src="vendors/popper.js/dist/umd/popper.min.js"></script>
+                </div>
+            </div><!-- .animated -->
+        </div><!-- .content -->
 
-                            <script src="vendors/jquery-validation/dist/jquery.validate.min.js"></script>
-                            <script src="vendors/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js"></script>
 
-                            <script src="vendors/bootstrap/dist/js/bootstrap.min.js"></script>
-                            <script src="assets/js/main.js"></script>
+    </div><!-- /#right-panel -->
+
+    <!-- Right Panel -->
+
+
+    <script src="vendors/jquery/dist/jquery.min.js"></script>
+    <script src="vendors/popper.js/dist/umd/popper.min.js"></script>
+    <script src="vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="assets/js/main.js"></script>
+
+<script src="https://code.jquery.com/jquery-2.2.4.js"></script>
+           <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+         <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
+         <script src="https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js"></script>
+         <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.bootstrap.min.js"></script>
+         <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+         <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+         <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js"></script>
+         <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.print.min.js"></script>
+         <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.colVis.min.js"></script>
+         <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css" />
+         <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.bootstrap.min.css" />
+
 </body>
+
 </html>
+
+<script>
+  $(document).ready(function(){
+      var table =  $('#bootstrap-data-table-export').DataTable( {
+        scrollCollapse: false,
+        responsive: true,
+        dom: 'Bfrtip',
+        buttons: [
+          'print',
+          'pdf',
+          'colvis',
+          'copy'
+        ],
+          "order":[],
+        "columnDefs":[
+          {
+            "targets":[0, 7],
+            "orderable":false,
+          },
+        ],
+        "language": {
+            "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json"
+        }
+    } );
+
+ });
+ </script>
