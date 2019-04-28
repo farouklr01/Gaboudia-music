@@ -6,6 +6,14 @@ include "../core/panier_produitc.php";
 include "../entities/panier.php";
 include "../core/panierc.php";
 
+//produit
+
+include "../core/produitc.php";
+
+
+
+
+
 $cookie_name = "panier";
 
 
@@ -16,7 +24,6 @@ if(!isset($_COOKIE[$cookie_name])) {
 } else {
 
     $panC=new panier_produitc();
-
     $list_prod=$panC->afficherpanier_produit($_COOKIE[$cookie_name]);
     $panii=new panierc();
 
@@ -25,7 +32,7 @@ if(!isset($_COOKIE[$cookie_name])) {
        $somm = $row2['somme'];
        $date = $row2['date_add'];
      }
-
+	$controlproduit =new ProduitC();
 }
 ?>
 
@@ -202,6 +209,8 @@ if(!isset($_COOKIE[$cookie_name])) {
   <tr>
     <th>ID</th>
     <th>Name</th>
+	<th>Prix</th>
+	<th>image</th>
     <th>Supp</th>
 	
   </tr>
@@ -213,7 +222,19 @@ if(!isset($_COOKIE[$cookie_name])) {
 								?>
   <tr>
     <td><?php echo $row["id_produit"] ; ?></td>
-    <td><?php echo "Name Prod" ; ?></td>
+    <td><?php 
+		$listeproduit=$controlproduit->recupererproduit($row["id_produit"]);
+	     foreach($listeproduit as $row3){
+		$nom=$row3['nom'];
+		$prix=$row3['prix'];
+        $image = $row3['image'];
+    }	
+	echo $nom;
+	?></td>
+	<td><?php echo $prix; ?></td>
+	<td>
+	 <img src="./../view/uploads/<?php echo $image; ?>" alt="" style="width:62;height:62px;"></td>
+	 
     <td>
 		<form action="supprimerproduit.php" method="post">
 										<input  class="btn musica-btn" type="submit" name="supprimer" value="supprimer">
@@ -236,10 +257,11 @@ if(!isset($_COOKIE[$cookie_name])) {
 </table>
 
 <?php
+	if (!empty($somm) and !empty($date)) {
                 echo '<form method ="post" action ="passcommande.php">
                     <input type="submit" name="commande"   class="btn musica-btn" value="Order"></input>
                     </form>';
-               ?>
+	}  ?>
                             </div>
 
       <div class="col-12">

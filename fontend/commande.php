@@ -183,7 +183,8 @@ include "../core/commandec.php";
          <!-- Single Skills Area -->
                             <div class="col-12">
                             
-					
+					          <button   class="btn btn-secondary btn-lg" id="doPrint">Print</button>
+                                  <div id="printDiv">
 <table id="customers">
   <tr>
     <th>ID</th>
@@ -206,7 +207,7 @@ include "../core/commandec.php";
   <?php } ?>
  
 </table>
-
+</div>
                             </div>
 
       <div class="col-12">
@@ -341,6 +342,17 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     <script src="js/plugins/plugins.js"></script>
     <!-- Active js -->
     <script src="js/active.js"></script>
+	<script>
+	    //////////////////////////////////PRINT FUNCTION  */////////////////////////////////
+    document.getElementById("doPrint").addEventListener("click", function() {
+     var printContents = document.getElementById('printDiv').innerHTML;
+     var originalContents = document.body.innerHTML;
+     document.body.innerHTML = printContents;
+     window.print();
+     document.body.innerHTML = originalContents;
+});
+
+</script>
 </body>
 
 </html>
